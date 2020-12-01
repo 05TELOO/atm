@@ -1,11 +1,11 @@
-class MyATM:
+class MyATM:    
     
-    def __init__(self):
+    def __init__(self):    #Внедрить экземпяры Customer, Account
         self.cust = Customer()
         self.acc = Account()
         self.bal = 1000000
 
-    def getStart(self, numCard):
+    def getStart(self, numCard):    #Считать номер карты ,запросить пин, заполнить атрибут Customer
         self.cust.numAcc = numCard
         col = 1
         pin = int(input('Enter pin code'))
@@ -19,7 +19,7 @@ class MyATM:
         else:
             print('ended attempts')
 
-    def cash(self, summ):
+    def cash(self, summ):    #Снятие денег, проверка наличия в банкомате, запрос наличия на счете
         if summ > self.bal:
             print('Insufficient funds at the ATM')
         elif self.acc.withdrawal(summ, self.cust):
@@ -27,24 +27,24 @@ class MyATM:
             print('Take your money')
         else:
             print('Insufficient funds in the account')  
-    def balance(self):
+    def balance(self):    #Запрос баланса на счете ,вывод
         print(self.acc.balAcc(self.cust))
 
 
-class Customer:
+class Customer:    #Создает экземпляры клиентов с атрибутом номер карты
 
     def __init__(self):
         self.numAcc = None
 
-class Account:
+class Account:    #Хранит информацию о счетах
     bc = {6666666666666666: {'pin': 7777, 'bal': 10000}}
 
-    def withdrawal(self, s, acc):
+    def withdrawal(self, s, acc):    #Получает запрос о снятии средств,проверяет наличие 
         if s <= self.bc[acc.numAcc]['bal']:
             self.bc[acc.numAcc]['bal'] = self.bc[acc.numAcc]['bal'] - s
             return True
 
-    def  balAcc(self, acc):
+    def  balAcc(self, acc):    #Получает запрос по остатку для экземпляра клиента,возвращает остаток
         return self.bc[acc.numAcc]['bal']     
 
 if __name__ == '__main__':
